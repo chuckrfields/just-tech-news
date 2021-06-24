@@ -1,4 +1,5 @@
 const router = require('express').Router();
+const { read } = require('fs');
 const { User } = require('../../models');
 
 // RESTful APIs: Representational State Transfer
@@ -63,9 +64,34 @@ router.post('/', (req, res) => {
     });
 });
 
+// POST /api/users/login
+router.post('/login', (req, res) => {
+    User.findOne({
+        where: {
+            email: req.body.email
+        }
+    }).then(dbUserData => {
+        if (!dbUserData) {
+            res.status(400).json( { message: 'Unable to login ' }); // Email not found in system, no need to tell user!
+            return;
+        }
+
+        // verify user
+        const validPassword = dbUserData.checkPassword(req.body.password);
+
+        if (!validPassword) {
+            res.status(400).json( { message: 'Invalid password' });
+            return;
+        }
+
+        res.json( { user: dbUserData, message: 'You are now logged in' });
+    });
+});
+
 // PUT /api/users/1
 router.put('/:id', (req, res) => {
     User.update(req.body, {  // We pass in req.body to provide the new data we want to use in the update and req.params.id to indicate where exactly we want that new data to be used
+        individualHooks: true,  // need individualHooks for bcrypt hashing
         where: {
             id: req.params.id 
         }
