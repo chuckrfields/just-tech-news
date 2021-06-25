@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const { read } = require('fs');
-const { User, Post, Vote } = require('../../models');
+const { User, Post, Vote, Comment } = require('../../models');
 
 // RESTful APIs: Representational State Transfer
 
@@ -40,6 +40,14 @@ router.get('/:id', (req, res) => {
             {
               model: Post,
               attributes: ['id', 'title', 'post_url', 'created_at']
+            },
+            {
+                model: Comment,
+                attributes: ['id', 'comment_text', 'post_id', 'user_id', 'created_at'],
+                include: {
+                    model: User,
+                    attributes: ['username']
+                }
             },
             {
               model: Post,
