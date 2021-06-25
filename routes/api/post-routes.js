@@ -2,7 +2,7 @@ const router = require('express').Router();
 const { Post, User } = require('../../models');
 const { restore } = require('../../models/User');
 
-// GET all users
+// GET all posts  /api/posts
 router.get('/', (req, res) => {
     Post.findAll({
         // query configuration
@@ -22,7 +22,7 @@ router.get('/', (req, res) => {
     });
 });
 
-// GET single post
+// GET single post  /api/posts/1
 router.get('/:id', (req, res) => {
     Post.findOne({
         where: {
@@ -49,7 +49,7 @@ router.get('/:id', (req, res) => {
     });
 });
 
-// POST article
+// POST article  /api/posts
 router.post('/', (req, res) => {
     Post.create({
         post_url: req.body.post_url,
@@ -63,7 +63,7 @@ router.post('/', (req, res) => {
     })
 })
 
-// PUT article
+// PUT article  /api/posts/1
 router.put('/:id', (req, res) => {
     Post.update( 
         {
@@ -87,7 +87,7 @@ router.put('/:id', (req, res) => {
     });
 });
 
-// DELETE article
+// DELETE article  /api/posts/1
 router.delete('/:id', (req, res) => {
     Post.destroy({
             where: {
