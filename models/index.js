@@ -1,3 +1,4 @@
 const User = require('./User');
+const Post = require('./Post');
 
-module.exports = { User }; // export an object with User as a property
+module.exports = { User, Post }; // export objects with User & Post as properties
