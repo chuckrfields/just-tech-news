@@ -1,0 +1,7 @@
+<ol class="post-list">
+  {{#each posts as |post|}}
+  <li>
+    {{> post-info post }}   <!-- Use the > character to import a partial -->
+  </li>
+  {{/each}}
+</ol>
