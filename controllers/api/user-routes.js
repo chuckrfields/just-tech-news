@@ -165,7 +165,7 @@ router.delete('/:id', (req, res) => {
 // Log out
 router.post('/logout', (req, res) => {
     if (req.session.loggedIn) {
-        res.session.destroy(() => {
+        req.session.destroy(() => {
             res.status(204).end(); // The HTTP 204 No Content success status response code indicates that a request has succeeded, but that the client doesn't need to navigate away from its current page
         });
     }
