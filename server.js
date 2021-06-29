@@ -12,7 +12,7 @@ const sequelize = require('./config/connection');
 const SequelizeStore = require('connect-session-sequelize')(session.Store);
 
 const sess = {
-    secret: process.env.DB_SECRET,
+  secret: process.env.DB_SECRET,
     cookie: {},
     resave: false,
     saveUninitialized: true,
@@ -20,6 +20,8 @@ const sess = {
         db: sequelize
     })
 };
+
+// secret: process.env.DB_SECRET,
 
 app.use(session(sess));
 
